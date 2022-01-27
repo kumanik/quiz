@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for question in questions %}
+    <div class="question">
+        <!-- <h2>{{ question.question }}</h2> -->
+        <div class="answers">
+            {{ question.word1.word }}
+            {{ question.word2.word }}
+            {{ question.word3.word }}
+        </div>
+    </div>
+{% endfor %}
+
+
+{% endblock %}
