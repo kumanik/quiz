@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- form for submitting roll number -->
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="roll">Roll Number</label>
+            <input type="text" class="form-control" id="roll" name="roll" placeholder="Enter Roll Number">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
