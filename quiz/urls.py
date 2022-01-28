@@ -13,3 +13,4 @@ urlpatterns = [
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.AUDIO_URL, document_root=settings.AUDIO_ROOT)
+urlpatterns += static(settings.CSV_URL, document_root=settings.CSV_ROOT)

@@ -21,3 +21,13 @@ class Question(models.Model):
         audio.save('audio/' + str(self.id) + self.question_text[0:5] + '.mp3')
         self.audio = 'audio/' + str(self.id) + self.question_text[0:5] + '.mp3'
         super(Question, self).save(*args, **kwargs)
+
+
+class Marks(models.Model):
+    csv = models.FileField(upload_to='csv/', blank=True)
+    total_marks = models.IntegerField(default=0)
+    name = models.CharField(max_length=200)
+    roll = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = (('name', 'roll'))

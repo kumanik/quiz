@@ -3,5 +3,6 @@
 
 audio/
 static/
+csv/
 
 .vscode/
