@@ -1,2 +1,7 @@
 */migrations/
 */__pycache__/*
+
+audio/
+static/
+
+.vscode/

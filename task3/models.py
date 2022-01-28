@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from gtts import gTTS
 
 
 class Question(models.Model):
@@ -25,3 +24,14 @@ class Passage(models.Model):
         Question, on_delete=models.CASCADE, related_name='question4')
     question5 = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='question5')
+    lang = models.CharField(
+        max_length=2,
+        default='en',
+        choices=[('en', 'English'), ('bn', 'Bengali')]
+    )
+
+    def save(self):
+        audio = gTTS(text=self.passage, lang=self.lang, slow=True)
+        audio.save('audio/' + str(self.id) + self.passage[0:5] + '.mp3')
+        self.audio = 'audio/' + str(self.id) + self.passage[0:5] + '.mp3'
+        super(Passage, self).save()
