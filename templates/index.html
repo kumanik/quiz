@@ -1,14 +1,36 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<!-- form for submitting roll number -->
-    <form action="{% url 'index' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="roll">Roll Number</label>
-            <input type="text" class="form-control" id="roll" name="roll" placeholder="Enter Roll Number">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
+<div class="container" style="max-width: 500px;">
+    <div class="card" style="padding: 20px;">
+        <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="roll">Roll Number</label>
+                <input type="text" class="form-control" id="roll" name="roll" placeholder="Enter Roll Number">
+                <div class="form-text">
+                    {% if roll %}
+                        Current Roll no is: {{ roll }}
+                    {% endif %}
+                  </div>
+            </div>
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                <div class="form-text">
+                    {% if name %}
+                        Current Name is: {{ name }}
+                    {% endif %}
+                  </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    {% if show %}
+    <div>
+        <a class="btn btn-primary" href="/task1/">Task 1</a>
+        <a class="btn btn-primary" href="/task2/">Task 2</a>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
