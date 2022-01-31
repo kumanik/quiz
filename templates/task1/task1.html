@@ -1,17 +1,111 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
-{% for question in questions %}
-    <div class="question">
-        <!-- <h2>{{ question.question }}</h2> -->
-        <div class="answers">
-            {{ question.word1.word }}
-            {{ question.word2.word }}
-            {{ question.word3.word }}
+<div class="container">
+    {% for question in questions %}
+    <div class="card" style="margin-top: 10px; margin-bottom: 10px">
+        <div
+            class="card-body question"
+            id="{{ question.id }}"
+            style="justify-content: center; align-items: center"
+        >
+            <div
+                class="form-check form-check"
+                style="justify-content: center; align-items: center"
+            >
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="check1-{{ question.id }}"
+                    value="{{ question.word1.word }}"
+                />
+                <label class="form-check-label" for="check1-{{ question.id }}">
+                    {{ question.word1.word }}
+                </label>
+                <br />
+                <audio controls>
+                    <source
+                        src="{{ question.word1.audio.url }}"
+                        type="audio/mpeg"
+                    />
+                </audio>
+            </div>
+            <div class="form-check form-check">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="check2-{{ question.id }}"
+                    value="{{ question.word2.word }}"
+                />
+                <label class="form-check-label" for="check2-{{ question.id }}">
+                    {{ question.word2.word }}
+                </label>
+                <br />
+                <audio controls>
+                    <source
+                        src="{{ question.word2.audio.url }}"
+                        type="audio/mpeg"
+                    />
+                </audio>
+            </div>
+            <div class="form-check form-check-inline">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="check3-{{ question.id }}"
+                    value="{{ question.word3.word }}"
+                />
+                <label class="form-check-label" for="check3-{{ question.id }}">
+                    {{ question.word3.word }}
+                </label>
+                <br />
+                <audio controls>
+                    <source
+                        src="{{ question.word3.audio.url }}"
+                        type="audio/mpeg"
+                    />
+                </audio>
+            </div>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
 
+    <button onclick="onClick()" class="btn btn-primary">Submit</button>
+</div>
+
+<script>
+    function onClick() {
+        var qs = document.getElementsByClassName("question");
+        var answers = [];
+        for (let i = 0; i < qs.length; i++) {
+            let ans = qs[i].getElementsByTagName("input");
+            let qId = qs[i].getAttribute("id");
+            let ansArr = [];
+            for (let j = 0; j < ans.length; j++) {
+                if (ans[j].checked) {
+                    ansArr.push(ans[j].value);
+                }
+            }
+            answers.push({
+                id: qId,
+                answers: ansArr,
+            });
+        }
+        console.log(answers);
+        answers = JSON.stringify(answers);
+        let csrftoken = getCookie("csrftoken");
+        fetch("/task1/", {
+            method: "POST",
+            body: answers,
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+        });
+        // .then((response) => {
+        //     window.location.href = "/";
+        // });
+    }
+</script>
 
 {% endblock %}

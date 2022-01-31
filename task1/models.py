@@ -32,3 +32,16 @@ class Question(models.Model):
 
     def __str__(self):
         return self.word1.word + ' ' + self.word2.word + ' ' + self.word3.word
+
+
+class Marks(models.Model):
+    csv = models.FileField(upload_to='csv/', blank=True)
+    total_marks = models.IntegerField(default=0)
+    name = models.CharField(max_length=200)
+    roll = models.CharField(max_length=200)
+
+    class Meta:
+        unique_together = (('name', 'roll'))
+
+    def __str__(self) -> str:
+        return self.name + ' ' + self.roll

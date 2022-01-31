@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('task1/', include('task1.urls')),
     path('task2/', include('task2.urls')),
+    path('task3/', include('task3.urls')),
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.AUDIO_URL, document_root=settings.AUDIO_ROOT)

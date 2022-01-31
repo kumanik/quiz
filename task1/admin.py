@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Word, Question
+from .models import Marks, Word, Question
 
 
-admin.site.register(Word)
+admin.site.register(Marks)
 admin.site.register(Question)
+admin.site.register(Word)

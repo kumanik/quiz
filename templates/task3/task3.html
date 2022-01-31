@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    {% for question in questions %}
+    <div class="card" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="card-body">
+            <p>{{ question.passage }}</p>
+            <audio controls>
+                <source src="{{ question.audio.url }}" type="audio/mpeg" />
+            </audio>
+            <div class="card questions" id="{{ question.id }}">
+                <div class="card-body mcq">
+                    <p>1. {{ question.question1.question }}</p>
+                    <div class="form-check" id="{{question.id}}">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="options{{question.question1.id}}"
+                            id="op1-{{question.question1.id}}"
+                            value="{{ question.question1.option1 }}"
+                        />
+                        <label class="form-check-label" for="op1">
+                            {{ question.question1.option1 }}
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{question.id}}">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="options{{question.question1.id}}"
+                            id="op2-{{question.question1.id}}"
+                            value="{{ question.question1.option1 }}"
+                        />
+                        <label class="form-check-label" for="op1">
+                            {{ question.question1.option2 }}
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{question.id}}">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="options{{question.id}}"
+                            id="op3-{{question.question1.id}}"
+                            value="{{ question.question1.option1 }}"
+                        />
+                        <label class="form-check-label" for="op1">
+                            {{ question.question1.option3 }}
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{question.id}}">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="options{{question.question1.id}}"
+                            id="op4-{{question.question1.id}}"
+                            value="{{ question.question1.option1 }}"
+                        />
+                        <label class="form-check-label" for="op1">
+                            {{ question.question1.option4 }}
+                        </label>
+                    </div>
+                </div>
+                <div class="mcq">
+                    <p>2. {{ question.question2.question }}</p>
+                </div>
+                <div class="mcq">
+                    <p>3. {{ question.question3.question }}</p>
+                </div>
+                <div class="mcq">
+                    <p>4. {{ question.question4.question }}</p>
+                </div>
+                <div class="mcq">
+                    <p>5. {{ question.question5.question }}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

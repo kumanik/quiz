@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+import json
 
 from task2.models import Marks, Question
 
@@ -9,7 +10,6 @@ def show_all(request):
     context = {}
     context['questions'] = Question.objects.all()
     if request.method == 'POST':
-        import json
         post_data = json.loads(request.body.decode("utf-8"))
         name = request.session['name']
         roll = request.session['roll']
@@ -23,7 +23,7 @@ def show_all(request):
                 'marks': 1 if post_data[i]['selected'] == qs.correct_option else 0
             })
             marks += 1 if post_data[i]['selected'] == qs.correct_option else 0
-        with open('csv/' + name + roll + '.csv', 'w') as f:
+        with open('csv/' + 'task2-' + name + roll + '.csv', 'w') as f:
             f.write('SlNo,Question,Option,Marks\n')
             for i in range(len(result)):
                 f.write(str(i) + ',' + result[i]['question'] + ',' + result[i]
@@ -36,8 +36,8 @@ def show_all(request):
             stud_marks.save()
         else:
             Marks.objects.create(
-                csv='csv/' + name + roll +
-                '.csv', total_marks=marks, name=name, roll=roll)
+                csv='csv/' + 'task2-' + name + roll +'.csv',
+                total_marks=marks, name=name, roll=roll)
         return redirect('/')
 
     return render(request, 'task2/task2.html', context)

@@ -31,3 +31,6 @@ class Marks(models.Model):
 
     class Meta:
         unique_together = (('name', 'roll'))
+
+    def __str__(self) -> str:
+        return self.name + ' ' + self.roll
